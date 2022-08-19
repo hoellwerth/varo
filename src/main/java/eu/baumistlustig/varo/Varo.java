@@ -2,8 +2,11 @@ package eu.baumistlustig.varo;
 
 import eu.baumistlustig.varo.commands.StartCommand;
 import eu.baumistlustig.varo.commands.TimerCommand;
+import eu.baumistlustig.varo.events.TimeEvents;
 import eu.baumistlustig.varo.utils.Countdown;
 import eu.baumistlustig.varo.utils.Timer;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Varo extends JavaPlugin {
@@ -31,6 +34,8 @@ public final class Varo extends JavaPlugin {
         getCommand("timer").setExecutor(new TimerCommand());
 
         // Events
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new TimeEvents(), this);
     }
 
     @Override
