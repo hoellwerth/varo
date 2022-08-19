@@ -64,6 +64,11 @@ public class Countdown {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     p.sendTitle(ChatColor.GREEN.toString() + ChatColor.BOLD + "Let's Go!", ChatColor.GRAY + "Varo startet jetzt!");
                 }
+                // Initialise WorldBorder
+                WorldBorder worldBorder = Varo.getPlugin().getWorldBorder();
+                worldBorder.initBorder();
+
+                // Start Timer
                 timer.setRunning(true);
                 Bukkit.getOnlinePlayers().forEach(player -> {
                     player.setExp(0);

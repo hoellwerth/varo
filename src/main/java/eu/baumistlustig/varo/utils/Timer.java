@@ -93,6 +93,9 @@ public class Timer {
         new BukkitRunnable() {
             @Override
             public void run() {
+                // Shrink World-border
+                WorldBorder worldBorder = Varo.getPlugin().getWorldBorder();
+                worldBorder.shrinkBorder(gameTime);
 
                 sendActionBar(getDisplayTime(gameTime));
 

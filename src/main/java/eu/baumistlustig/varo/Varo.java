@@ -5,6 +5,7 @@ import eu.baumistlustig.varo.commands.TimerCommand;
 import eu.baumistlustig.varo.events.TimeEvents;
 import eu.baumistlustig.varo.utils.Countdown;
 import eu.baumistlustig.varo.utils.Timer;
+import eu.baumistlustig.varo.utils.WorldBorder;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,6 +16,7 @@ public final class Varo extends JavaPlugin {
 
     private Timer timer;
     private Countdown countdown;
+    private WorldBorder worldborder;
 
     public static Varo getPlugin() {
         return plugin;
@@ -27,6 +29,11 @@ public final class Varo extends JavaPlugin {
 
         // Timer init
         timer = new Timer(false, 0);
+
+        // Worldborder init
+        worldborder = new WorldBorder();
+
+        // Countdown init
         countdown = new Countdown();
 
         // Commands
@@ -49,5 +56,9 @@ public final class Varo extends JavaPlugin {
 
     public Countdown getCountdown() {
         return countdown;
+    }
+
+    public WorldBorder getWorldBorder() {
+        return worldborder;
     }
 }
