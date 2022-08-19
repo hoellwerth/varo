@@ -78,12 +78,25 @@ public class Timer {
         return String.format("%02d:%02d:%02d:%02d", days, hours, minutes, seconds);
     }
 
+    void disablePeaceTime() {
+        if (getTime() == 300) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.sendTitle(
+                        ChatColor.GREEN.toString() + ChatColor.BOLD + "PeaceTime vorbei!",
+                        ChatColor.GRAY + "Ihr könnt nun andere Spieler attackieren!"
+                );
+            }
+        }
+    }
+
     private void run() {
         new BukkitRunnable() {
             @Override
             public void run() {
 
                 sendActionBar(getDisplayTime(gameTime));
+
+                disablePeaceTime();
 
                 if (!isRunning()) {
                     return;
