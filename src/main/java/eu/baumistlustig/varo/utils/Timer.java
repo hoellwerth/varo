@@ -7,6 +7,8 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.concurrent.TimeUnit;
+
 public class Timer {
     private boolean gameRunning;
     private int gameTime;
@@ -33,7 +35,7 @@ public class Timer {
         this.gameTime = time;
     }
 
-    public void sendActionBar() {
+    public void sendActionBar(String displayTime) {
         int playerCount = 0;
         for (Player p : Bukkit.getOnlinePlayers()) {
 
@@ -43,21 +45,37 @@ public class Timer {
 
             if (p.getGameMode().equals(GameMode.SURVIVAL)) playerCount += 1;
 
-            ActionBar bar = new ActionBar();
-
-            if (playerCount == 1) {
-                bar.sendActionBar(p, ChatColor.GRAY + "Läuft seit: "
-                        + ChatColor.BOLD + ChatColor.AQUA + getTime()
-                        + ChatColor.RESET + ChatColor.GREEN + " ┃ "
-                        + ChatColor.GRAY + "Noch " + ChatColor.GREEN + ChatColor.BOLD + playerCount + ChatColor.RESET + ChatColor.GRAY + " Spieler übrig");
-                return;
-            }
-
-            bar.sendActionBar(p, ChatColor.GRAY + "Läuft seit: "
-                    + ChatColor.BOLD + ChatColor.AQUA + getTime()
+            new ActionBar().sendActionBar(p, ChatColor.GRAY + "Läuft seit: "
+                    + ChatColor.BOLD + ChatColor.AQUA + displayTime
                     + ChatColor.RESET + ChatColor.GREEN + " ┃ "
                     + ChatColor.GRAY + "Noch " + ChatColor.GREEN + ChatColor.BOLD + playerCount + ChatColor.RESET + ChatColor.GRAY + " Spieler übrig");
         }
+    }
+
+    private String getDisplayTime(int time) {
+
+        int days = (int) TimeUnit.SECONDS.toDays(time);
+        long hours = TimeUnit.SECONDS.toHours(time) - (days * 24L);
+
+        long minutes = TimeUnit.SECONDS.toMinutes(time) -
+                (TimeUnit.SECONDS.toHours(time)* 60);
+
+        long seconds = TimeUnit.SECONDS.toSeconds(time) -
+                (TimeUnit.SECONDS.toMinutes(time) *60);
+
+        if (minutes == 0 && hours == 0 && days == 0) {
+            return String.format("%02d", seconds);
+        }
+
+        if (hours == 0 && days == 0) {
+            return String.format("%02d:%02d", minutes, seconds);
+        }
+
+        if (days == 0) {
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        }
+
+        return String.format("%02d:%02d:%02d:%02d", days, hours, minutes, seconds);
     }
 
     private void run() {
@@ -65,7 +83,7 @@ public class Timer {
             @Override
             public void run() {
 
-                sendActionBar();
+                sendActionBar(getDisplayTime(gameTime));
 
                 if (!isRunning()) {
                     return;
