@@ -1,0 +1,5 @@
+name: Varo
+version: '${project.version}'
+main: eu.baumistlustig.varo.Varo
+api-version: 1.19
+authors: [ Baumistlustig ]
