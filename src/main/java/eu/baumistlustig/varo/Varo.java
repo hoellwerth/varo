@@ -1,6 +1,6 @@
 package eu.baumistlustig.varo;
 
-import eu.baumistlustig.varo.commands.Start;
+import eu.baumistlustig.varo.commands.StartCommand;
 import eu.baumistlustig.varo.commands.TimerCommand;
 import eu.baumistlustig.varo.utils.Countdown;
 import eu.baumistlustig.varo.utils.Timer;
@@ -27,7 +27,7 @@ public final class Varo extends JavaPlugin {
         countdown = new Countdown();
 
         // Commands
-        getCommand("start").setExecutor(new Start());
+        getCommand("start").setExecutor(new StartCommand());
         getCommand("timer").setExecutor(new TimerCommand());
 
         // Events
