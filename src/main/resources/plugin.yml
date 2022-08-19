@@ -3,3 +3,13 @@ version: '${project.version}'
 main: eu.baumistlustig.varo.Varo
 api-version: 1.19
 authors: [ Baumistlustig ]
+
+commands:
+  start:
+    description: Starts the varo game
+    permission: varo.start
+
+  timer:
+    description: Controls the timer
+    permission: varo.timer
+
