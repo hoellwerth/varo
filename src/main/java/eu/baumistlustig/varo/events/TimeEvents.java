@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 public class TimeEvents implements Listener {
 
@@ -24,6 +25,12 @@ public class TimeEvents implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         Player player = e.getPlayer();
-        if (!timer.isRunning() || player.isOp() || player.hasPermission("*")) e.setCancelled(true);
+        if (!timer.isRunning() && !player.isOp() && !player.hasPermission("*")) e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e) {
+        Player player = e.getPlayer();
+        if (!timer.isRunning() && !player.isOp() && !player.hasPermission("*")) e.setCancelled(true);
     }
 }
