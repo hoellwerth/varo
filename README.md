@@ -1,3 +1,3 @@
 # Varo
 
-A Minecraft java Plugin
+A Minecraft Varo Plugin
